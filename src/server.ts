@@ -3,6 +3,7 @@ import cors from "cors";
 import dotenv from "dotenv";
 import http from "http";
 import router from "./routes/index.router";
+import path from "path"; // ✅ Adicione isso
 
 dotenv.config();
 const app = express();
@@ -15,9 +16,13 @@ app.use(
 );
 app.use(express.json());
 
-// Use o router somente uma vez aqui
+// ✅ Aqui você adiciona o middleware para servir as imagens
+app.use("/uploads", express.static(path.join(__dirname, "..", "uploads")));
+
+// ✅ Depois disso, registre as rotas da aplicação
 app.use("/", router);
 
+// 🔁 Inicialização do servidor
 const runServer = (port: number, server: http.Server) => {
   server.listen(port, () => {
     console.log(`Servidor rodando na porta ${port}`);

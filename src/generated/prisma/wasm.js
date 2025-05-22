@@ -126,6 +126,11 @@ exports.Prisma.UserScalarFieldEnum = {
   password: 'password'
 };
 
+exports.Prisma.CategoryScalarFieldEnum = {
+  id: 'id',
+  name: 'name'
+};
+
 exports.Prisma.ArticleScalarFieldEnum = {
   id: 'id',
   title: 'title',
@@ -133,8 +138,8 @@ exports.Prisma.ArticleScalarFieldEnum = {
   description: 'description',
   url: 'url',
   image: 'image',
-  category: 'category',
-  createdAt: 'createdAt'
+  createdAt: 'createdAt',
+  categoryId: 'categoryId'
 };
 
 exports.Prisma.SortOrder = {
@@ -147,6 +152,10 @@ exports.Prisma.UserOrderByRelevanceFieldEnum = {
   password: 'password'
 };
 
+exports.Prisma.CategoryOrderByRelevanceFieldEnum = {
+  name: 'name'
+};
+
 exports.Prisma.NullsOrder = {
   first: 'first',
   last: 'last'
@@ -157,13 +166,13 @@ exports.Prisma.ArticleOrderByRelevanceFieldEnum = {
   author: 'author',
   description: 'description',
   url: 'url',
-  image: 'image',
-  category: 'category'
+  image: 'image'
 };
 
 
 exports.Prisma.ModelName = {
   User: 'User',
+  Category: 'Category',
   Article: 'Article'
 };
 
