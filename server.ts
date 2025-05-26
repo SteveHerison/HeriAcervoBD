@@ -10,7 +10,7 @@ const app = express();
 
 app.use(
   cors({
-    origin: "https://acervoocupacional.vercel.app/",
+    origin: "https://acervoocupacional.vercel.app",
     credentials: true,
   })
 );
