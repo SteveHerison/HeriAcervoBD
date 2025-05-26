@@ -7,7 +7,7 @@ const express_1 = __importDefault(require("express"));
 const cors_1 = __importDefault(require("cors"));
 const dotenv_1 = __importDefault(require("dotenv"));
 const http_1 = __importDefault(require("http"));
-const index_router_1 = __importDefault(require("./routes/index.router"));
+const index_router_1 = __importDefault(require("./src/routes/index.router"));
 const path_1 = __importDefault(require("path")); // ✅ Adicione isso
 dotenv_1.default.config();
 const app = (0, express_1.default)();
