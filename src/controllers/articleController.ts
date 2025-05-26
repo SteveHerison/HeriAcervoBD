@@ -114,4 +114,7 @@ export const getArticlesByCategory = async (req: Request, res: Response) => {
 
 // createCategories()
 //   .catch(console.error)
-//   .finally(() => process.exit());
+//   .finally(() => {
+//     prisma.$disconnect();
+//     process.exit();
+//   });

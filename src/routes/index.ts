@@ -23,4 +23,5 @@ router.get("/me", authMiddleware, auth.getMe);
 router.get("/articles", getArticles);
 router.get("/articles/category/:categoryId", getArticlesByCategory);
 router.get("/categories", getCategories);
+
 export default router;

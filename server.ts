@@ -2,7 +2,7 @@ import express from "express";
 import cors from "cors";
 import dotenv from "dotenv";
 import http from "http";
-import router from "./src/routes/index.router";
+import router from "./src/routes";
 import path from "path"; // ✅ Adicione isso
 
 dotenv.config();
@@ -10,7 +10,7 @@ const app = express();
 
 app.use(
   cors({
-    origin: "http://localhost:3000",
+    origin: "https://acervoocupacional.vercel.app/",
     credentials: true,
   })
 );
