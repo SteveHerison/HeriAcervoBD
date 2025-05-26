@@ -4,11 +4,8 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "dev": "nodemon",
-    "build": "prisma generate && tsc",
-    "start": "node build/server.js",
-    "postinstall": "prisma generate",
-    "postbuild": "ls -la build"
+    "prisma:migration": "npx prisma migrate dev --name init",
+    "start": "npm run prisma:migration && node server.ts"
   },
   "keywords": [],
   "author": "",
