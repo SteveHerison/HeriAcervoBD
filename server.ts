@@ -8,12 +8,25 @@ import path from "path"; // ✅ Adicione isso
 dotenv.config();
 const app = express();
 
+const allowedOrigins = [
+  "http://localhost:3000",
+  "https://acervoocupacional.vercel.app",
+];
+
 app.use(
   cors({
-    origin: "https://acervoocupacional.vercel.app",
+    origin: function (origin, callback) {
+      if (!origin) return callback(null, true); // permite requisições sem origin (ex: Postman)
+      if (allowedOrigins.indexOf(origin) === -1) {
+        const msg = `O CORS para a origem ${origin} não é permitido.`;
+        return callback(new Error(msg), false);
+      }
+      return callback(null, true);
+    },
     credentials: true,
   })
 );
+
 app.use(express.json());
 
 // ✅ Aqui você adiciona o middleware para servir as imagens
