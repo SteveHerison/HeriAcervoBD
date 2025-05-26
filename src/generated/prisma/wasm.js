@@ -147,26 +147,14 @@ exports.Prisma.SortOrder = {
   desc: 'desc'
 };
 
-exports.Prisma.UserOrderByRelevanceFieldEnum = {
-  email: 'email',
-  password: 'password'
-};
-
-exports.Prisma.CategoryOrderByRelevanceFieldEnum = {
-  name: 'name'
+exports.Prisma.QueryMode = {
+  default: 'default',
+  insensitive: 'insensitive'
 };
 
 exports.Prisma.NullsOrder = {
   first: 'first',
   last: 'last'
-};
-
-exports.Prisma.ArticleOrderByRelevanceFieldEnum = {
-  title: 'title',
-  author: 'author',
-  description: 'description',
-  url: 'url',
-  image: 'image'
 };
 
 

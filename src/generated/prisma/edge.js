@@ -119,26 +119,14 @@ exports.Prisma.SortOrder = {
   desc: 'desc'
 };
 
-exports.Prisma.UserOrderByRelevanceFieldEnum = {
-  email: 'email',
-  password: 'password'
-};
-
-exports.Prisma.CategoryOrderByRelevanceFieldEnum = {
-  name: 'name'
+exports.Prisma.QueryMode = {
+  default: 'default',
+  insensitive: 'insensitive'
 };
 
 exports.Prisma.NullsOrder = {
   first: 'first',
   last: 'last'
-};
-
-exports.Prisma.ArticleOrderByRelevanceFieldEnum = {
-  title: 'title',
-  author: 'author',
-  description: 'description',
-  url: 'url',
-  image: 'image'
 };
 
 
@@ -185,7 +173,8 @@ const config = {
   "datasourceNames": [
     "db"
   ],
-  "activeProvider": "mysql",
+  "activeProvider": "postgresql",
+  "postinstall": false,
   "inlineDatasources": {
     "db": {
       "url": {
@@ -194,8 +183,8 @@ const config = {
       }
     }
   },
-  "inlineSchema": "generator client {\n  provider = \"prisma-client-js\"\n  output   = \"../src/generated/prisma\"\n}\n\ndatasource db {\n  provider = \"mysql\"\n  url      = env(\"DATABASE_URL\")\n}\n\nmodel User {\n  id       Int    @id @default(autoincrement())\n  email    String @unique\n  password String\n}\n\nmodel Category {\n  id       Int       @id @default(autoincrement())\n  name     String    @unique\n  articles Article[]\n}\n\nmodel Article {\n  id          Int      @id @default(autoincrement())\n  title       String\n  author      String\n  description String\n  url         String\n  image       String?\n  createdAt   DateTime @default(now())\n\n  // Relacionamento com Category\n  categoryId Int\n  category   Category @relation(fields: [categoryId], references: [id])\n}\n",
-  "inlineSchemaHash": "6fb6ad8d16e62a426ad88926876f25b6e8ab5e94329dd06016b777addbc4d0a6",
+  "inlineSchema": "generator client {\n  provider = \"prisma-client-js\"\n  output   = \"../src/generated/prisma\"\n}\n\ndatasource db {\n  provider = \"postgres\"\n  url      = env(\"DATABASE_URL\")\n}\n\nmodel User {\n  id       Int    @id @default(autoincrement())\n  email    String @unique\n  password String\n}\n\nmodel Category {\n  id       Int       @id @default(autoincrement())\n  name     String    @unique\n  articles Article[]\n}\n\nmodel Article {\n  id          Int      @id @default(autoincrement())\n  title       String\n  author      String\n  description String\n  url         String\n  image       String?\n  createdAt   DateTime @default(now())\n\n  // Relacionamento com Category\n  categoryId Int\n  category   Category @relation(fields: [categoryId], references: [id])\n}\n",
+  "inlineSchemaHash": "9670024c13cc70eb9f2b092b4ddc78c498fa67bbd865c4f0470399045c3b4447",
   "copyEngine": true
 }
 config.dirname = '/'
