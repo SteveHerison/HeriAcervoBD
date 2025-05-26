@@ -5,7 +5,7 @@
     "esModuleInterop": true,
     "target": "es2021",
     "module": "commonjs",
-    "outDir": "./build",
+    "outDir": "build",
 
     "forceConsistentCasingInFileNames": true,
     "skipLibCheck": true
