@@ -4,6 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
+    "dev": "nodemon",
     "prisma:migration": "npx prisma migrate dev --name init",
     "build": "tsc",
     "start": "npm run prisma:migration && npm run build && node build/server.js"
