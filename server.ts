@@ -9,8 +9,9 @@ dotenv.config();
 const app = express();
 
 const allowedOrigins = [
-  "http://localhost:3000",
-  "https://acervoocupacional.vercel.app",
+  "http://localhost:3000", // para desenvolvimento local
+  "https://acervoocupacional.vercel.app", // seu frontend principal em produção
+  "https://heri-acervo.vercel.app", // outro domínio do frontend que você mencionou
 ];
 
 app.use(
