@@ -14,7 +14,7 @@ const allowedOrigins = [
   "https://heri-acervo.vercel.app",
 ];
 
-// 🔒 CORS restrito (com cookies)
+// 🔒 CORS restrito com suporte a credenciais
 const restrictedCors = cors({
   origin: function (origin, callback) {
     if (!origin) return callback(null, true);
@@ -28,7 +28,7 @@ const restrictedCors = cors({
   credentials: true,
 });
 
-// 🔓 CORS aberto para rotas públicas
+// 🔓 CORS aberto (sem cookies) para rotas públicas
 const openCors = cors({ origin: "*" });
 
 app.use(express.json());
@@ -36,11 +36,12 @@ app.use(express.json());
 // 🖼️ Servir imagens
 app.use("/uploads", express.static(path.join(__dirname, "uploads")));
 
-// 🔓 Aplica CORS aberto APENAS nas rotas públicas
-app.use("/articles", openCors);
-app.use("/categories", openCors);
+// 🔓 Rotas públicas com CORS aberto
+app.get("/articles", openCors);
+app.get("/articles/category/:categoryId", openCors);
+app.get("/categories", openCors);
 
-// 🔐 Aplica CORS restrito nas demais rotas
+// 🔐 Todas as demais rotas usam CORS restrito
 app.use("/", restrictedCors, router);
 
 // 🚀 Iniciar servidor
