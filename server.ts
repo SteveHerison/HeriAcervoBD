@@ -3,8 +3,6 @@ import cors from "cors";
 import dotenv from "dotenv";
 import http from "http";
 import router from "./src/routes";
-import path from "path";
-import fs from "fs";
 
 dotenv.config();
 
@@ -16,13 +14,6 @@ const allowedOrigins = [
   "https://acervoocupacional.vercel.app",
 ];
 
-// Cria pasta uploads se não existir
-const uploadsPath = path.join(__dirname, "uploads");
-if (!fs.existsSync(uploadsPath)) {
-  fs.mkdirSync(uploadsPath, { recursive: true });
-  console.log("Pasta uploads criada.");
-}
-
 app.use(
   cors({
     origin: allowedOrigins,
@@ -33,7 +24,6 @@ app.use(
 app.use(express.json());
 
 // Servir arquivos estáticos
-app.use("/uploads", express.static(uploadsPath));
 
 app.use("/", router);
 
