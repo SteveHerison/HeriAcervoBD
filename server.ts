@@ -3,46 +3,47 @@ import cors from "cors";
 import dotenv from "dotenv";
 import http from "http";
 import router from "./src/routes";
-import path from "path"; // ✅ Adicione isso
+import path from "path";
 
 dotenv.config();
 const app = express();
 
-// const allowedOrigins = [
-//   "http://localhost:3000", // para desenvolvimento local
-//   "https://acervoocupacional.vercel.app", // principal em produção
-//   "https://heri-acervo.vercel.app", // outro domínio
-// ];
+const allowedOrigins = [
+  "http://localhost:3000",
+  "https://acervoocupacional.vercel.app",
+  "https://heri-acervo.vercel.app",
+];
 
-// app.use(
-//   cors({
-//     origin: function (origin, callback) {
-//       if (!origin) return callback(null, true); // permite requisições sem origin (ex: Postman)
-//       if (allowedOrigins.indexOf(origin) === -1) {
-//         const msg = `O CORS para a origem ${origin} não é permitido.`;
-//         return callback(new Error(msg), false);
-//       }
-//       return callback(null, true);
-//     },
-//     credentials: true,
-//   })
-// );
+// 🔒 CORS restrito (com cookies)
+const restrictedCors = cors({
+  origin: function (origin, callback) {
+    if (!origin) return callback(null, true);
+    if (allowedOrigins.includes(origin)) {
+      return callback(null, true);
+    } else {
+      const msg = `🚫 CORS bloqueado para origem: ${origin}`;
+      return callback(new Error(msg), false);
+    }
+  },
+  credentials: true,
+});
 
-app.use(
-  cors({
-    origin: "*",
-  })
-);
+// 🔓 CORS aberto para rotas públicas
+const openCors = cors({ origin: "*" });
 
 app.use(express.json());
 
-// ✅ Aqui você adiciona o middleware para servir as imagens
+// 🖼️ Servir imagens
 app.use("/uploads", express.static(path.join(__dirname, "uploads")));
 
-// ✅ Depois disso, registre as rotas da aplicação
-app.use("/", router);
+// 🔓 Aplica CORS aberto APENAS nas rotas públicas
+app.use("/articles", openCors);
+app.use("/categories", openCors);
 
-// 🔁 Inicialização do servidor
+// 🔐 Aplica CORS restrito nas demais rotas
+app.use("/", restrictedCors, router);
+
+// 🚀 Iniciar servidor
 const runServer = (port: number, server: http.Server) => {
   server.listen(port, () => {
     console.log(`Servidor rodando na porta ${port}`);
