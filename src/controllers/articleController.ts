@@ -23,15 +23,13 @@ export const createArticle = async (
       return;
     }
 
-    const image = req.file?.filename ?? ""; // ✅ Usa o nome do arquivo enviado, ou string vazia
-
     const article = await prisma.article.create({
       data: {
         title,
         author,
         description,
         url,
-        image,
+
         category: {
           connect: { id: categoryId },
         },
