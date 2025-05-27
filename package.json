@@ -3,15 +3,14 @@
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
-"scripts": {
-  "dev": "nodemon",
-  "prisma:migration": "npx prisma migrate dev --name init",          
-  "prisma:deploy": "npx prisma migrate deploy",                   
-  "prisma:generate": "npx prisma generate",                        
-  "build": "tsc && npm run prisma:generate",
-  "start": "npm run prisma:deploy && node build/server.js"
-}
-,
+  "scripts": {
+    "dev": "nodemon",
+    "prisma:migration": "npx prisma migrate dev --name init",
+    "prisma:deploy": "npx prisma migrate deploy",
+    "prisma:generate": "npx prisma generate",
+    "build": "tsc && npm run prisma:generate",
+    "start": "npm run build && npm run prisma:deploy && node build/server.js"
+  },
   "keywords": [],
   "author": "",
   "license": "ISC",
