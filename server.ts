@@ -9,23 +9,14 @@ dotenv.config();
 const app = express();
 
 const allowedOrigins = [
-  "https://acervoocupacional.vercel.app", // domínio principal
-  "http://localhost:3000", // desenvolvimento local
   "https://heri-acervo.vercel.app", // domínio alternativo
+  "http://localhost:3000", // desenvolvimento local
+  "https://acervoocupacional.vercel.app", // domínio principal
 ];
 
 app.use(
   cors({
-    origin: function (origin, callback) {
-      if (!origin) return callback(null, true); // permite ferramentas como Postman ou curl
-      if (allowedOrigins.includes(origin)) {
-        // retorna a origem da requisição para o cabeçalho Access-Control-Allow-Origin
-        return callback(null, origin);
-      } else {
-        const msg = `CORS bloqueado para a origem: ${origin}`;
-        return callback(new Error(msg), false);
-      }
-    },
+    origin: allowedOrigins,
     credentials: true,
   })
 );
