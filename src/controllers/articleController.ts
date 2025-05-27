@@ -6,7 +6,7 @@ export const createArticle = async (
   res: Response
 ): Promise<void> => {
   try {
-    const { title, author, description, url, category } = req.body;
+    const { title, author, description, url, image, category } = req.body;
     const categoryId = Number(category);
 
     if (isNaN(categoryId)) {
@@ -29,7 +29,7 @@ export const createArticle = async (
         author,
         description,
         url,
-
+        image,
         category: {
           connect: { id: categoryId },
         },
