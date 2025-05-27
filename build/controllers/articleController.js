@@ -109,4 +109,7 @@ exports.getArticlesByCategory = getArticlesByCategory;
 // }
 // createCategories()
 //   .catch(console.error)
-//   .finally(() => process.exit());
+//   .finally(() => {
+//     prisma.$disconnect();
+//     process.exit();
+//   });
