@@ -12,6 +12,7 @@ const allowedOrigins = [
   "https://heri-acervo.vercel.app",
   "http://localhost:3000",
   "https://acervoocupacional.vercel.app",
+  " https://acervovirtualdetodocato.vercel.app/",
 ];
 
 app.use(
