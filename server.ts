@@ -9,42 +9,37 @@ dotenv.config();
 const app = express();
 
 const allowedOrigins = [
-  "http://localhost:3000",
-  "https://acervoocupacional.vercel.app",
-  "https://heri-acervo.vercel.app",
+  "https://acervoocupacional.vercel.app", // domínio principal
+  "http://localhost:3000", // desenvolvimento local
+  "https://heri-acervo.vercel.app", // domínio alternativo
 ];
 
-// 🔒 CORS restrito com suporte a credenciais
-const restrictedCors = cors({
-  origin: function (origin, callback) {
-    if (!origin) return callback(null, true);
-    if (allowedOrigins.includes(origin)) {
-      return callback(null, true);
-    } else {
-      const msg = `🚫 CORS bloqueado para origem: ${origin}`;
-      return callback(new Error(msg), false);
-    }
-  },
-  credentials: true,
-});
+app.use(
+  cors({
+    origin: function (origin, callback) {
+      if (!origin) return callback(null, true); // permite ferramentas como Postman ou curl
+      if (allowedOrigins.includes(origin)) {
+        // retorna a origem da requisição para o cabeçalho Access-Control-Allow-Origin
+        return callback(null, origin);
+      } else {
+        const msg = `CORS bloqueado para a origem: ${origin}`;
+        return callback(new Error(msg), false);
+      }
+    },
+    credentials: true,
+  })
+);
 
-// 🔓 CORS aberto (sem cookies) para rotas públicas
-const openCors = cors({ origin: "*" });
-
+// Middleware para JSON
 app.use(express.json());
 
-// 🖼️ Servir imagens
+// Servir arquivos estáticos (como imagens)
 app.use("/uploads", express.static(path.join(__dirname, "uploads")));
 
-// 🔓 Rotas públicas com CORS aberto
-app.get("/articles", openCors);
-app.get("/articles/category/:categoryId", openCors);
-app.get("/categories", openCors);
+// Suas rotas
+app.use("/", router);
 
-// 🔐 Todas as demais rotas usam CORS restrito
-app.use("/", restrictedCors, router);
-
-// 🚀 Iniciar servidor
+// Inicializar servidor
 const runServer = (port: number, server: http.Server) => {
   server.listen(port, () => {
     console.log(`Servidor rodando na porta ${port}`);
