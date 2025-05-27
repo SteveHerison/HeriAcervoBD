@@ -22,9 +22,7 @@ app.use(
 );
 
 app.use(express.json());
-
-// Servir arquivos estáticos
-
+app.use(express.urlencoded({ extended: true }));
 app.use("/", router);
 
 const runServer = (port: number, server: http.Server) => {
