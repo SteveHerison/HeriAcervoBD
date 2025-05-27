@@ -4,15 +4,24 @@ import dotenv from "dotenv";
 import http from "http";
 import router from "./src/routes";
 import path from "path";
+import fs from "fs";
 
 dotenv.config();
+
 const app = express();
 
 const allowedOrigins = [
-  "https://heri-acervo.vercel.app", // domínio alternativo
-  "http://localhost:3000", // desenvolvimento local
-  "https://acervoocupacional.vercel.app", // domínio principal
+  "https://heri-acervo.vercel.app",
+  "http://localhost:3000",
+  "https://acervoocupacional.vercel.app",
 ];
+
+// Cria pasta uploads se não existir
+const uploadsPath = path.join(__dirname, "uploads");
+if (!fs.existsSync(uploadsPath)) {
+  fs.mkdirSync(uploadsPath, { recursive: true });
+  console.log("Pasta uploads criada.");
+}
 
 app.use(
   cors({
@@ -21,16 +30,13 @@ app.use(
   })
 );
 
-// Middleware para JSON
 app.use(express.json());
 
-// Servir arquivos estáticos (como imagens)
-app.use("/uploads", express.static(path.join(__dirname, "uploads")));
+// Servir arquivos estáticos
+app.use("/uploads", express.static(uploadsPath));
 
-// Suas rotas
 app.use("/", router);
 
-// Inicializar servidor
 const runServer = (port: number, server: http.Server) => {
   server.listen(port, () => {
     console.log(`Servidor rodando na porta ${port}`);
